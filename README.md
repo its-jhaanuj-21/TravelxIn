@@ -2,11 +2,11 @@
 
 Welcome to TravelxIN, your ultimate guide to exploring the diverse and vibrant landscapes of India. This landing page is designed to inspire and guide travelers, showcasing the beauty and culture of India through stunning visuals and informative content.
 
-![TravelxIN Screenshot](Screenshoot.png)
+![TravelxIN Screenshot](Screenshoot1-TravelxIn.png)
 
 ## Demo
 
-You can view the landing page online [here](https://your-live-demo-link.com).
+You can view the landing page online [here](https://travelx-in.vercel.app/).
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ To run the landing page locally, follow these steps:
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/your-username/TravelxIN.git
+    git clone https://github.com/its-jhaanuj-21/TravelxIN.git
     ```
 
 2. Navigate to the project directory:
