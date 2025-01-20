@@ -1,4 +1,3 @@
-
 /*=============== SHOW MENU ===============*/
 const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
@@ -66,17 +65,6 @@ const scrollActive = () =>{
 }
 window.addEventListener('scroll', scrollActive)
 
-/*=============== SCROLL REVEAL ANIMATION ===============*/
-// const sr = ScrollReveal({
-//     origin: 'top',
-//     distance: '60px',
-//     duration: 3000,
-//     delay:400,
-//     // reset: true // Animation repeat
-// })
-
-// sr.reveal(`.home__data`)
-
 
 /*=============== LOCK RIGHT CLICK - PREVENT INSPECT =============*/
 document.addEventListener('contextmenu', function(e) {
@@ -90,3 +78,136 @@ document.addEventListener('contextmenu', function(e) {
     }
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*=============== SCROLL REVEAL ANIMATION ===============*/
+// const sr = ScrollReveal({
+//     origin: 'top',
+//     distance: '60px',
+//     duration: 3000,
+//     delay:400,
+//     // reset: true // Animation repeat
+// })
+
+// sr.reveal(`.home__data`)
