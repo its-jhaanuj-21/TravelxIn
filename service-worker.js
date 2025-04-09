@@ -2,8 +2,13 @@ const CACHE_NAME = 'v1';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/main.js',
     '/style.css',
+    '/main.js',
+    '/service-worker.js',
+    '/README.md',
+    '/Screenshoot1-TravelxIn.png',
+
+    // Image Assets
     '/assets/img2/about-darjeeling.webp',
     '/assets/img2/explore-dalLake3.jpg.webp',
     '/assets/img2/explore-profile.webp',
