@@ -37,43 +37,64 @@ const urlsToCache = [
     '/assets/img2/popular-TungnathTemple.webp',
     '/assets/img2/popular-VictoriaMemorial.webp',
     '/assets/img2/popular-VictoriaMemorial2.webp',
-
-    // Add more assets like images, fonts
 ];
 
+// Install - cache files
 self.addEventListener('install', (event) => {
-    // Cache resources
+    console.log('[SW] Installing Service Worker...');
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            console.log('Caching app shell...');
+            console.log('[SW] Caching assets...');
             return cache.addAll(urlsToCache);
         })
     );
+    self.skipWaiting(); // Activate immediately
 });
 
+// Activate - cleanup old cache and notify
 self.addEventListener('activate', (event) => {
-    // Clean up old caches
+    console.log('[SW] Activating Service Worker...');
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map(name => {
                     if (name !== CACHE_NAME) {
-                        console.log('Removing old cache:', name);
+                        console.log('[SW] Deleting old cache:', name);
                         return caches.delete(name);
                     }
                 })
             );
+        }).then(() => {
+            return self.registration.showNotification('🔁 TravelXIn Updated!', {
+                body: 'New content is available. Refresh the page to see updates.',
+                icon: '/assets/img2/home-bg2.webp',
+                badge: '/assets/img2/home-goa.webp',
+                vibrate: [100, 50, 100],
+            });
         })
     );
 });
 
+// Fetch - serve from cache first
 self.addEventListener('fetch', (event) => {
-    // Intercept fetch requests
     event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                // Return cached response or fetch from network
-                return response || fetch(event.request);
-            })
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
+});
+
+// Notification click - refresh tab or open new one
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+    event.waitUntil(
+        clients.matchAll({ type: 'window' }).then((clientList) => {
+            for (const client of clientList) {
+                if ('focus' in client) return client.focus();
+            }
+            if (clients.openWindow) {
+                return clients.openWindow('/');
+            }
+        })
     );
 });
