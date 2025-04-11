@@ -5,8 +5,6 @@ const urlsToCache = [
     '/style.css',
     '/main.js',
     '/service-worker.js',
-    '/README.md',
-    '/Screenshoot1-TravelxIn.png',
 
     // Image Assets
     '/assets/img2/about-darjeeling.webp',
@@ -39,62 +37,36 @@ const urlsToCache = [
     '/assets/img2/popular-VictoriaMemorial2.webp',
 ];
 
-// Install - cache files
-self.addEventListener('install', (event) => {
-    console.log('[SW] Installing Service Worker...');
+// Install event
+self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log('[SW] Caching assets...');
-            return cache.addAll(urlsToCache);
-        })
+      caches.open(CACHE_NAME).then(cache => {
+        return cache.addAll(urlsToCache);
+      })
     );
-    self.skipWaiting(); // Activate immediately
-});
-
-// Activate - cleanup old cache and notify
-self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating Service Worker...');
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map(name => {
-                    if (name !== CACHE_NAME) {
-                        console.log('[SW] Deleting old cache:', name);
-                        return caches.delete(name);
-                    }
-                })
-            );
-        }).then(() => {
-            return self.registration.showNotification('🔁 TravelXIn Updated!', {
-                body: 'New content is available. Refresh the page to see updates.',
-                icon: '/assets/img2/home-bg2.webp',
-                badge: '/assets/img2/home-goa.webp',
-                vibrate: [100, 50, 100],
-            });
-        })
-    );
-});
-
-// Fetch - serve from cache first
-self.addEventListener('fetch', (event) => {
+  });
+  
+  // Fetch event
+  self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        })
+      caches.match(event.request).then(response => {
+        // Return cached response or fetch from network
+        return response || fetch(event.request);
+      })
     );
-});
-
-// Notification click - refresh tab or open new one
-// self.addEventListener('notificationclick', (event) => {
-//     event.notification.close();
-//     event.waitUntil(
-//         clients.matchAll({ type: 'window' }).then((clientList) => {
-//             for (const client of clientList) {
-//                 if ('focus' in client) return client.focus();
-//             }
-//             if (clients.openWindow) {
-//                 return clients.openWindow('/');
-//             }
-//         })
-//     );
-// });
+  });
+  
+  // Activate event
+  self.addEventListener('activate', event => {
+    event.waitUntil(
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames.map(name => {
+            if (name !== CACHE_NAME) {
+              return caches.delete(name);
+            }
+          })
+        );
+      })
+    );
+  });
